@@ -10,9 +10,8 @@ x_train = data[['x1', 'x2', 'x3', 'x4', 'x5']].values
 y_train = data['F'].values
 
 # Настройки для экспериментов
-#neuron_counts = [3, 4, 5, 32, 1024]
-neuron_counts = [4]
-activations = ['tanh', 'sigmoid']
+neuron_counts = [3, 4, 5, 32, 1024]
+activations = ['tanh', 'sigmoid', 'relu']
 epochs = 1500
 
 # Вывод весов
@@ -56,8 +55,10 @@ for i, neurons in enumerate(neuron_counts):
     for activation in activations:
         if activation == 'tanh':
             linestyle = '--'
-        else:
+        if activation == 'sigmoid':
             linestyle = '-'
+        if activation == 'relu':
+            linestyle = 'dotted'
         loss = create_and_train_model(neurons, activation, epochs)
         plt.plot(loss, color=colors[i], linestyle=linestyle, label=f'{activation}, {neurons} нейрона')
 
